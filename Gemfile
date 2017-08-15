@@ -10,7 +10,7 @@ gem "dotenv"
 gem "mailgun-ruby", "~>1.1.6"
 
 # use mongoid to talk to our mongodb database
-gem "mongoid", "~> 6.2.0"
+gem "mongoid", "~>5"
 
 # use rest-client for making HTTP calls
 gem "rest-client"

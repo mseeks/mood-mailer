@@ -3,4 +3,10 @@ production:
     default:
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
-      uri: "<%= ENV["MONGODB_URI"] %>"
+      uri: <%= ENV["MONGODB_URI"] %>
+      options:
+         # The default timeout is 5, which is the time in seconds
+         # for a connection to time out.
+         # We recommend 15 because it allows for plenty of time
+         # in most operating environments.
+         connect_timeout: 15

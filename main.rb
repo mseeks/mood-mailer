@@ -44,11 +44,14 @@ mg_events = Mailgun::Events.new(mg_client, ENV["EMAIL_DOMAIN"])
     key = item["storage"]["key"]
     access_url = "https://api:#{ENV["MAILGUN_API_KEY"]}@sw.api.mailgun.net/v3/domains/#{ENV["EMAIL_DOMAIN"]}/messages/#{key}"
 
-    begin
+    response = begin
       response = JSON.parse(RestClient.get(access_url).body)
-      document = Response.new(body: response["stripped-text"], recieved_at: response["Date"])
-      document.upsert
     rescue => e
+    end
+
+    if response
+      document = Response.new(body: response["stripped-text"], recieved_at: response["Date"])
+      ap document.upsert
     end
   end
 
