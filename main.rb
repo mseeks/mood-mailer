@@ -4,21 +4,12 @@ Dotenv.load
 
 require "awesome_print"
 require "mailgun"
-require "mongoid"
 require "rest-client"
 require "rufus-scheduler"
 
 ENV["TZ"] = "America/Chicago"
 
 scheduler = Rufus::Scheduler.new
-
-Mongoid.load!("./mongoid.yml", :production)
-
-class Response
-  include Mongoid::Document
-  field :body, type: String
-  field :recieved_at, type: DateTime
-end
 
 # First, instantiate the Mailgun Client with your API key
 mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
@@ -50,12 +41,10 @@ mg_events = Mailgun::Events.new(mg_client, ENV["EMAIL_DOMAIN"])
     end
 
     if response
-      document = Response.new(body: response["stripped-text"], recieved_at: response["Date"])
-      ap document.upsert
+      response["stripped-text"]
+      response["Date"]
     end
   end
-
-  ap Response.count
 # end
 
 scheduler.join
