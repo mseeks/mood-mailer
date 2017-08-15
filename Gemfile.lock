@@ -14,6 +14,8 @@ GEM
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.1)
+    et-orbi (1.0.3)
+      tzinfo
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.8.6)
@@ -38,6 +40,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rufus-scheduler (3.4.0)
+      et-orbi (~> 1.0)
     thread_safe (0.3.6)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
@@ -55,6 +59,7 @@ DEPENDENCIES
   mongoid (~> 6.2.0)
   rails_12factor
   rest-client
+  rufus-scheduler
 
 BUNDLED WITH
    1.14.6
