@@ -4,4 +4,4 @@ services:
     build: ./
     env_file: .env
     volumes:
-      - ./data/responses.csv:/data/responses.csv
+      - ./data:/app/data

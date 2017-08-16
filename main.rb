@@ -43,11 +43,11 @@ scheduler.every "5m" do
     end
 
     if response
-      file_path = "/data/responses.csv"
-      unless File.readlines(file_path).grep(/#{response["Date"]}/).size > 0
-        open(file_path, "a") { |f|
-          f.puts "'#{response["Date"]}',#{response["stripped-text"]}"
-        }
+      file_path = File.join(Dir.pwd, "data", "responses.csv")
+      matching_responses = File.foreach(file_path).grep(/#{response["Date"]}/)
+
+      unless matching_responses.size > 0
+        `echo '#{response["Date"]},#{response["stripped-text"]}' >> #{file_path}`
       end
     end
   end
