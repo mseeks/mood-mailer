@@ -47,7 +47,7 @@ scheduler.every "5m" do
       matching_responses = File.foreach(file_path).grep(/#{response["Date"]}/)
 
       unless matching_responses.size > 0
-        `echo '#{response["Date"]},#{response["stripped-text"]}' >> #{file_path}`
+        `echo '\"#{response["Date"]}\",#{response["stripped-text"]}' >> #{file_path}`
       end
     end
   end
