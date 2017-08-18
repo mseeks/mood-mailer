@@ -27,7 +27,7 @@ scheduler.cron "0 9,13,17 * * 1,2,3,4,5" do
   mg_client.send_message ENV["EMAIL_DOMAIN"], message_params
 end
 
-scheduler.every "1s" do
+scheduler.every "5m" do
   result = mg_events.get({
     event: "stored"
   })
