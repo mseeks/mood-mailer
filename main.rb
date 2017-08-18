@@ -44,7 +44,7 @@ scheduler.every "5m" do
 
     if response
       file_path = File.join(Dir.pwd, "data", "responses.csv")
-      has_matching_responses = File.foreach(file_path).read.include?(response["Date"])
+      has_matching_responses = File.open(file_path, "rb").read.include?(response["Date"])
 
       unless has_matching_responses
         `echo '\"#{response["Date"]}\",#{response["stripped-text"]}' >> #{file_path}`
