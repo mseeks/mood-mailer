@@ -27,20 +27,21 @@ scheduler.cron "0 9,13,17 * * 1,2,3,4,5" do
   mg_client.send_message ENV["EMAIL_DOMAIN"], message_params
 end
 
-scheduler.every "5m" do
+scheduler.every "1s" do
   result = mg_events.get({
     event: "stored"
   })
 
   # To Ruby standard Hash.
   result.to_h["items"].each do |item|
-    key = item["storage"]["key"]
-    access_url = "https://api:#{ENV["MAILGUN_API_KEY"]}@sw.api.mailgun.net/v3/domains/#{ENV["EMAIL_DOMAIN"]}/messages/#{key}"
-
-    response = begin
-      JSON.parse(RestClient.get(access_url).body)
-    rescue => e
-    end
+    response = JSON.parse(
+      RestClient::Request.new(
+        method: :get,
+        url: item["storage"]["url"],
+        user: "api",
+        password: ENV["MAILGUN_API_KEY"]
+      ).execute.body
+    )
 
     if response
       file_path = File.join(Dir.pwd, "data", "responses.csv")
