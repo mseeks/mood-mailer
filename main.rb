@@ -38,7 +38,7 @@ scheduler.every "5m" do
     access_url = "https://api:#{ENV["MAILGUN_API_KEY"]}@sw.api.mailgun.net/v3/domains/#{ENV["EMAIL_DOMAIN"]}/messages/#{key}"
 
     response = begin
-      response = JSON.parse(RestClient.get(access_url).body)
+      JSON.parse(RestClient.get(access_url).body)
     rescue => e
     end
 
